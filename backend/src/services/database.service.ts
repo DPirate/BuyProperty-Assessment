@@ -10,13 +10,11 @@ connect(mongo_url)
 
 interface IMongoEntity {
   _id: Types.ObjectId;
-  isDeleted?: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
 
-interface Url extends IMongoEntity {
-  url_id: number;
+export interface Url extends IMongoEntity {
   url: string;
   noOfVisits: number;
   expiry: Date;
@@ -24,10 +22,14 @@ interface Url extends IMongoEntity {
 
 export const UrlModel = model<Url>(
   "urls",
-  new Schema<Url>({
-    url_id: { type: Number, unique: true },
-    url: { type: String, required: true },
-    noOfVisits: { type: Number, required: true },
-    expiry: { type: Date, required: true },
-  })
+  new Schema<Url>(
+    {
+      url: { type: String, required: true },
+      noOfVisits: { type: Number, required: true },
+      expiry: { type: Date, required: true },
+    },
+    {
+      timestamps: true,
+    }
+  )
 );
