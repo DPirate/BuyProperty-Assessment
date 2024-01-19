@@ -6,7 +6,12 @@ export const errorHandler: ErrorRequestHandler = (
   response: Response,
   _next: NextFunction
 ): unknown => {
-  console.error(error, request?.url, request?.body);
+  // log error
+  console.error(error?.stack);
+  console.error(`Route: ${request?.url}`);
+  console.error(request?.body);
+
+  //return error response
   if (error?.message === "UrlExpiryError") {
     return response.status(410).send("URL has expired");
   }
@@ -16,6 +21,10 @@ export const errorHandler: ErrorRequestHandler = (
   }
 
   if (error?.message === "RouteError") {
+    return response.status(400).send("Bad Request");
+  }
+
+  if (error?.message === "ValidationError") {
     return response.status(400).send("Bad Request");
   }
 
