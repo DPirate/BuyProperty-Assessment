@@ -2,7 +2,7 @@ import { Schema, Types, connect, model } from "mongoose";
 
 // TODO: move to env file
 const mongo_url =
-  "mongodb+srv://url-shortner-user:yJbiH7VRT0K3ErOM@assignments.hgo5pis.mongodb.net/";
+  "mongodb+srv://url-shortner-user:yJbiH7VRT0K3ErOM@assignments.hgo5pis.mongodb.net/url-shortner";
 
 connect(mongo_url)
   .then(() => console.log("Connected to MongoDB"))
@@ -17,7 +17,7 @@ interface IMongoEntity {
 export interface Url extends IMongoEntity {
   url: string;
   noOfVisits: number;
-  expiry: Date;
+  expiry: number; // in ms
 }
 
 export const UrlModel = model<Url>(
@@ -26,7 +26,7 @@ export const UrlModel = model<Url>(
     {
       url: { type: String, required: true },
       noOfVisits: { type: Number, required: true },
-      expiry: { type: Date, required: true },
+      expiry: { type: Number, required: true },
     },
     {
       timestamps: true,
