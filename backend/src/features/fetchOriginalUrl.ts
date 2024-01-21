@@ -18,6 +18,8 @@ export const fetchOriginalUrl = async (urlId: string): Promise<string> => {
     throw new Error("UrlNotFoundError");
   }
 
+  await urlObject?.updateOne({ $inc: { noOfVisits: 1 } }).exec();
+
   if (urlObject?.createdAt.getTime() + urlObject?.expiry < Date.now()) {
     throw new Error("UrlExpiredError");
   }

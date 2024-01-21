@@ -1,4 +1,4 @@
-import { Schema, Types, connect, model } from "mongoose";
+import { Schema, connect, model } from "mongoose";
 
 // TODO: move to env file
 const mongo_url =
@@ -9,15 +9,15 @@ connect(mongo_url)
   .catch((error) => console.error("MongoDB connection error:", error));
 
 interface IMongoEntity {
-  _id: Types.ObjectId;
+  _id: number;
   createdAt: Date;
   updatedAt: Date;
 }
 
 export interface Url extends IMongoEntity {
   url: string;
-  noOfVisits: number;
-  expiry: number; // in ms
+  noOfVisits: number; // INFO: can change to include location and timestamp of visits, noOfVisits = visits.length
+  expiry: number; // lease from creation date in ms
 }
 
 export const UrlModel = model<Url>(
