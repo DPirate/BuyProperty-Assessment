@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 
 import { errorHandler } from "./middlewares/error-handler.js";
 import { generateUrl } from "./features/generateShortUrl.js";
+import { fetchOriginalUrl } from "./features/fetchOriginalUrl.js";
 
 const app = express();
 // TODO: move to env file
@@ -19,6 +20,15 @@ app.post(
     if (!url) throw new Error("ValidationError");
     const response = await generateUrl(url);
     res.send(response);
+  })
+);
+
+// get request to redirect to original url
+app.get(
+  "/u/:id",
+  asyncHandler(async (req, res) => {
+    const url = await fetchOriginalUrl(req.params.id);
+    res.redirect(302, url);
   })
 );
 
