@@ -25,7 +25,7 @@ export const errorHandler: ErrorRequestHandler = (
   }
 
   if (error?.message === "ValidationError") {
-    return response.status(400).send("Bad Request");
+    return response.status(422).send("Bad Request Params");
   }
 
   if (error?.message === "InvalidUrlError") {

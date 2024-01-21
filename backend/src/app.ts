@@ -1,8 +1,9 @@
 import express, { NextFunction, Request, Response } from "express";
-import asyncHandler from "express-async-handler";
+import asyncHandler from "express-async-handler"; // TODO: replace with a custom wrapper
 
 import { errorHandler } from "./middlewares/error-handler.js";
 import { generateUrl } from "./features/generateShortUrl.js";
+import { listAllUrls } from "./features/listAllUrls.js";
 import { fetchOriginalUrl } from "./features/fetchOriginalUrl.js";
 
 const app = express();
@@ -19,6 +20,17 @@ app.post(
     const { url } = req.body;
     if (!url) throw new Error("ValidationError");
     const response = await generateUrl(url);
+    res.send(response);
+  })
+);
+
+// get request to fetch all urls
+app.get(
+  "/api/urls",
+  asyncHandler(async (req, res) => {
+    const pageNumber = Number(req?.query?.pageNumber ?? 0);
+    if (pageNumber <= 0) throw new Error("ValidationError");
+    const response = await listAllUrls(pageNumber);
     res.send(response);
   })
 );
