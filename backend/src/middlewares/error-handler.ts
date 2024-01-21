@@ -28,5 +28,9 @@ export const errorHandler: ErrorRequestHandler = (
     return response.status(400).send("Bad Request");
   }
 
+  if (error?.message === "InvalidUrlError") {
+    return response.status(400).send("Bad Url");
+  }
+
   return response.status(501).send("Internal Server Error");
 };
