@@ -8,8 +8,8 @@ import { fetchOriginalUrl } from "./features/fetchOriginalUrl.js";
 
 const app = express();
 // TODO: move to env file
-const port = 3000;
-export const BASE_URL = "http://localhost:3000";
+const PORT = 3100;
+export const BASE_URL = `http://localhost:${PORT}`;
 export const URL_EXPIRY_TIME_MS = 24 * 60 * 60 * 1000;
 
 app.use(express.json());
@@ -50,6 +50,6 @@ app.use((_req: Request, _res: Response, next: NextFunction) =>
 
 app.use(errorHandler);
 
-app.listen(port, () => {
-  return console.log(`Express is listening at http://localhost:${port}`);
+app.listen(PORT, () => {
+  return console.log(`Express is listening at http://localhost:${PORT}`);
 });
