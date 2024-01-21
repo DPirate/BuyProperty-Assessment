@@ -12,7 +12,7 @@ export const errorHandler: ErrorRequestHandler = (
   console.error(request?.body);
 
   //return error response
-  if (error?.message === "UrlExpiryError") {
+  if (error?.message === "UrlExpiredError") {
     return response.status(410).send("URL has expired");
   }
 
