@@ -1,7 +1,6 @@
 "use client";
 
 import { SyntheticEvent, useState } from "react";
-import Image from "next/image";
 import styles from "./page.module.css";
 
 //TODO: move to env
@@ -43,24 +42,22 @@ export default function Page() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>URL Shortener</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Enter a url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
-        <button type="submit">Shorten</button>
-      </form>
-      {error && <p className={styles.error}>{error}</p>}
-      {shortenedUrl && (
-        <div className={styles.shortenedUrl}>
-          <p>Shortened URL:</p>
-          <a href={shortenedUrl}>{shortenedUrl}</a>
-        </div>
-      )}
+    <div className={styles.main}>
+      <div className={styles.description}>
+        <h1>URL Shortener</h1>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Enter a url"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+          />
+          <button type="submit">Shorten</button>
+        </form>
+
+        {error && <p className={styles.code}>Error: {error}</p>}
+        {shortenedUrl && <p className={styles.code}>URL: {shortenedUrl}</p>}
+      </div>
     </div>
   );
 }
