@@ -1,7 +1,7 @@
 import { BASE_URL } from "../app.js";
 import { UrlModel } from "../services/database.service.js";
 
-const URLS_PAGE_SIZE = 100;
+const URLS_PAGE_SIZE = 10;
 interface UrlResponse {
   pageNumber: number;
   urls: {

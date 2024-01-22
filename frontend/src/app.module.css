@@ -58,3 +58,24 @@
   font-weight: 700;
   font-family: var(--font-mono);
 }
+.table {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: left;
+  font-size: 0.85rem;
+  width: 100%;
+  font-family: var(--font-mono);
+  overflow-x:auto;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 4px solid rgba(var(--callout-border-rgb), 0.3);
+}
+
+td, th {
+  padding: .2rem;
+  margin: .2rem;
+  border: 4px solid rgba(var(--callout-border-rgb), 0.3);
+}
