@@ -7,6 +7,7 @@ import styles from "./app.module.css";
 
 //TODO: move to env
 const SERVER_URL = "http://localhost:3100";
+const URLS_PER_PAGE = 5;
 
 type urlListElement = {
   shortUrl: string;
@@ -108,11 +109,11 @@ export default function App() {
           />
           <button type="submit">Shorten</button>
         </form>
-
-        {generateUrlError && (
-          <p className={styles.code}>Error: {generateUrlError}</p>
-        )}
-        {shortenedUrl && <p className={styles.code}>URL: {shortenedUrl}</p>}
+        <p aria-placeholder="Enter a Url" className={styles.code}>
+          {(generateUrlError && `Error: ${generateUrlError}`) ||
+            (shortenedUrl && `URL: ${shortenedUrl}`) ||
+            "Url will be displayed here"}
+        </p>
       </div>
       <div className={styles.table}>
         <table>
@@ -145,6 +146,20 @@ export default function App() {
             )}
           </tbody>
         </table>
+        <div className={styles.nav}>
+          <button
+            disabled={pageNumber === 1}
+            onClick={() => setPageNumber(pageNumber - 1)}
+          >
+            Prev
+          </button>
+          <button
+            disabled={urls.length < URLS_PER_PAGE}
+            onClick={() => setPageNumber(pageNumber + 1)}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
