@@ -1,4 +1,5 @@
 import express, { NextFunction, Request, Response } from "express";
+import cors from "cors";
 import asyncHandler from "express-async-handler"; // TODO: replace with a custom wrapper
 
 import { errorHandler } from "./middlewares/error-handler.js";
@@ -6,12 +7,15 @@ import { generateUrl } from "./features/generateShortUrl.js";
 import { listAllUrls } from "./features/listAllUrls.js";
 import { fetchOriginalUrl } from "./features/fetchOriginalUrl.js";
 
-const app = express();
 // TODO: move to env file
 const PORT = 3100;
 export const BASE_URL = `http://localhost:${PORT}`;
 export const URL_EXPIRY_TIME_MS = 24 * 60 * 60 * 1000;
 
+const app = express();
+
+app.use(cors());
+app.options("*", [cors()]);
 app.use(express.json());
 
 app.post(
