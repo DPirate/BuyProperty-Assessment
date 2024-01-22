@@ -24,7 +24,7 @@ app.post(
     const { url } = req.body;
     if (!url) throw new Error("ValidationError");
     const response = await generateUrl(url);
-    res.send(response);
+    res.json(response);
   })
 );
 
@@ -35,7 +35,7 @@ app.get(
     const pageNumber = Number(req?.query?.pageNumber ?? 0);
     if (pageNumber <= 0) throw new Error("ValidationError");
     const response = await listAllUrls(pageNumber);
-    res.send(response);
+    res.json(response);
   })
 );
 
