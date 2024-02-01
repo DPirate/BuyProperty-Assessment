@@ -9,7 +9,7 @@ interface UrlResponse {
     url: string;
     noOfVisits: number;
     createdAt: Date;
-    expiry: number;
+    expiry: string;
   }[];
 }
 
@@ -20,20 +20,29 @@ interface UrlResponse {
  */
 export const listAllUrls = async (pageNumber: number): Promise<UrlResponse> => {
   const urls = await UrlModel.find({})
-    .skip(pageNumber * (URLS_PAGE_SIZE - 1))
+    .sort({ createdAt: "desc" })
+    .skip((pageNumber - 1) * (URLS_PAGE_SIZE - 1))
     .limit(URLS_PAGE_SIZE)
     .exec();
 
   return {
     pageNumber: pageNumber + 1,
-    urls: urls.map(({ _id, url, noOfVisits, expiry, createdAt }) => ({
-      shortUrl: `${BASE_URL}/u/${Buffer.from(_id.toString(), "hex").toString(
-        "base64url"
-      )}`,
-      url,
-      noOfVisits,
-      createdAt,
-      expiry,
-    })),
+    urls: urls.map(({ _id, url, noOfVisits, expiry, createdAt }) => {
+      let msLeft = createdAt.getTime() + expiry - Date.now();
+      if (msLeft < 0) {
+        msLeft = 0;
+      }
+      return {
+        shortUrl: `${BASE_URL}/u/${Buffer.from(_id.toString(), "hex").toString(
+          "base64url"
+        )}`,
+        url,
+        noOfVisits,
+        createdAt,
+        expiry: `${Math.floor(msLeft / 1000 / 60 / 60)}h ${
+          Math.floor(msLeft / 1000 / 60) % 60
+        }m left`,
+      };
+    }),
   };
 };
