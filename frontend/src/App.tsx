@@ -43,6 +43,19 @@ export default function App() {
   const [generateUrlError, setGenerateUrlError] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
 
+  const { data: { urls } = { urls: [] }, refetch } = useQuery({
+    queryKey: ["fetchUrls", pageNumber],
+    queryFn: () => getUrlList(pageNumber),
+  });
+
+  // Prefetch the next page of urls
+  useQuery({
+    queryKey: ["fetchUrls", pageNumber + 1],
+    queryFn: () => {
+      getUrlList(pageNumber + 1);
+    },
+  });
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     setGenerateUrlError("");
@@ -61,6 +74,7 @@ export default function App() {
       if (data.error) {
         setGenerateUrlError(data.error);
       } else {
+        refetch();
         setShortenedUrl(data);
       }
     } catch (err) {
@@ -82,19 +96,6 @@ export default function App() {
       setGenerateUrlError((err as Error).message);
     }
   };
-
-  const { data: { urls } = { urls: [] } } = useQuery({
-    queryKey: ["fetchUrls", pageNumber],
-    queryFn: () => getUrlList(pageNumber),
-  });
-
-  // Prefetch the next page of urls
-  useQuery({
-    queryKey: ["fetchUrls", pageNumber + 1],
-    queryFn: () => {
-      getUrlList(pageNumber + 1);
-    },
-  });
 
   return (
     <div className={styles.main}>
