@@ -4,7 +4,7 @@ This repository contains a URL shortener application with two microservices: a b
 
 ## Backend
 
-The backend microservice is responsible for handling the URL shortening logic and managing the database. It provides RESTful APIs for creating and retrieving shortened URLs.
+Responsible for handling the URL shortening logic and managing the database. It provides RESTful APIs for creating and retrieving shortened URLs.
 
 ### Technologies Used
 
@@ -15,7 +15,7 @@ The backend microservice is responsible for handling the URL shortening logic an
 ### Getting Started
 
 1. Clone the repository.
-2. Follow the instructions in the [README](backend/README.md) to set up the microservice.
+2. Follow the instructions in the [README](backend/README.md) to set it up.
 
 ### API Documentation
 
@@ -23,7 +23,7 @@ The backend microservice is responsible for handling the URL shortening logic an
 
 ## Frontend
 
-The frontend microservice is responsible for providing a user interface to interact with the URL shortener. It allows users to enter a long URL and get a shortened URL in return. Also shows the list of generated urls.
+Responsible for providing a user interface to create shortened url. Also shows the list of generated urls.
 
 ### Technologies Used
 
@@ -33,4 +33,4 @@ The frontend microservice is responsible for providing a user interface to inter
 ### Getting Started
 
 1. Clone the repository.
-2. Follow the instructions in the [README](frontend/README.md) to set up the microservice.
+2. Follow the instructions in the [README](frontend/README.md) to set it up.
