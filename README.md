@@ -1,6 +1,6 @@
 # URL Shortener
 
-This repository contains a URL shortener application with two microservices: a backend and a frontend.
+Mono repo for URL shortener application.
 
 ## Backend
 
